@@ -16,11 +16,9 @@ cxx"""
 """
 typealias curandState_t cxxt"curandState_t"{48}
 
-"""
-    curandStateSobol32_t
-
-"""
-typealias curandStateSobol32_t cxxt"curandStateSobol32_t"{140}
+export new, delete
+new(::Type{curandState_t}) = icxx"return new curandState_t;"
+delete(x) = icxx"delete $x;"
 
 """
    curand_init(see, sequence, offset, state)
@@ -31,47 +29,31 @@ Initialisation for `curandState_t`
 - `seed`
 - `sequence`
 - `offset`
-- `state::Ptr{curandState_t}`
+- `state` Cxx pointer to a state
 """
-function curand_init(seed, sequence, offset, state :: Ptr{curandState_t})
-  @cxx curand_init(seed, sequence, offset, state)
+function curand_init(seed, sequence, offset, state)
+  icxx"""
+    curand_init($seed, $sequence, $offset, $state);
+  """
 end
-
-"""
-   curand_init(direction_vectors, offset, state)
-
-Initialisation for `curandStateSobol32_t`
-"""
-function curand_init(direction_vectors, offset, state :: Ptr{curandStateSobol32_t})
-  @cxx curand_init(direction_vectors, offset, state)
-end
-
-"""
-   curand_init(direction_vectors, scamble_c, offset, state)
-
-Initialisation for `curandStateSobol32_t`
-"""
- function curand_init(direction_vectors, scramble_c, offset, state :: Ptr{curandStateSobol32_t})
-   @cxx curand_init(direction_vectors, scramble_c, offset, state)
- end
 
 """
    curand(state)
 
 """
-curand(state) = @cxx curand(state)
+curand(state) = icxx"curand($state);"
 
-curand_uniform(::Type{Float32}, state) = @cxx curand_uniform(state)
-curand_uniform(::Type{Float64}, state) = @cxx curand_uniform_double(state)
+curand_uniform(::Type{Float32}, state) = icxx"curand_uniform($state);"
+curand_uniform(::Type{Float64}, state) = icxx"curand_uniform_double($state);"
 
-curand_normal(::Type{Float32}, state) = @cxx curand_normal(state)
-curand_normal(::Type{Float64}, state) = @cxx curand_normal_double(state)
+curand_normal(::Type{Float32}, state) = icxx"curand_normal($state);"
+curand_normal(::Type{Float64}, state) = icxx"curand_normal_double($state);"
 
 curand_log_normal(::Type{Float32}, state, mean, stddev) =
-  @cxx curand_log_normal(state, mean, stddev)
+  icxx"curand_log_normal($state, $mean, $stddev);"
 curand_log_normal(::Type{Float64}, state, mean, stddev) =
-  @cxx curand_log_normal_double(state, mean, stddev)
+  icxx"curand_log_normal_double($state, $mean, $stddev);"
 
-curand_poisson(state, lambda) = @cxx curand_poisson(state, lambda)
+curand_poisson(state, lambda) = icxx"curand_poisson($state, $lambda);"
 
 end
