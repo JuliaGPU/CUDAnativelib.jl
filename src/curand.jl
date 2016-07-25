@@ -17,8 +17,8 @@ cxx"""
 typealias curandState_t cxxt"curandState_t"{48}
 
 export new, delete
-new(::Type{curandState_t}) = icxx"return new curandState_t;"
-delete(x) = icxx"delete $x;"
+new(::Type{curandState_t}) = icxx"return (curandState_t*) malloc(sizeof(curandState_t));"
+delete(x) = icxx"free($x);"
 
 """
    curand_init(see, sequence, offset, state)
