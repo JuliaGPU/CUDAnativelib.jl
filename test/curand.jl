@@ -14,15 +14,15 @@ using .CURANDkernel # notice the dot prefix
   return nothing
 end
 
-code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
+# code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
 # code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
 
-code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
+# code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
 # code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
 
-# dev = CuDevice(0)
-# ctx = CuContext(dev)
-# N = 100
-# out = CuArray(Float32, (N,))
-# @cuda (N,1) fillRandom(out)
+dev = CuDevice(0)
+ctx = CuContext(dev)
+N = 100
+out = CuArray(Float32, (N,))
+@cuda (N,1) fillRandom(out)
 
