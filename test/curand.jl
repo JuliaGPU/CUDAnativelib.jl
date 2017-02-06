@@ -2,7 +2,7 @@ using CUDAdrv, CUDAnative
 using CUDAnativelib
 using .CURANDkernel # notice the dot prefix
 
-@target ptx function fillRandom(out)
+function fillRandom(out)
   i = (blockIdx().x-1) * blockDim().x + threadIdx().x
   if i <= length(out)
     # Initialise state
