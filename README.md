@@ -37,8 +37,8 @@ end
 dev = CuDevice(0)
 ctx = CuContext(dev)
 N = 100
-state = CuArray(curandState_t, (N,)
-out = CuArray(Float32, (N,))
+state = CuArray{curandState_t}(N)
+out = CuArray{Float32}(N)
 @cuda (N,1) fillRandom(out, state)
 ```
 

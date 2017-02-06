@@ -23,6 +23,7 @@ end
 dev = CuDevice(0)
 ctx = CuContext(dev)
 N = 100
-out = CuArray(Float32, (N,))
+out = CuArray{Float32}(N)
 @cuda (N,1) fillRandom(out)
+c = Array(out) # force sync
 
