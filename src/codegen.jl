@@ -9,6 +9,7 @@ function new_cuda_compiler(;target = __triple__, sm = __sm__)
 
   if CUDA_VERSION >= 8000 && LLVM_VERSION < v"4.0.0"
     warn("CUDA 8.0+ requires at least LLVM 4.0. Using the compatibility headers from 4.0")
+    warn("Forefully disabling intrinsics from SM_60")
     addHeaderDir(C,
                  Pkg.dir("CUDAnativelib", "deps", "include", "clang40"),
                  kind = C_ExternCSystem)

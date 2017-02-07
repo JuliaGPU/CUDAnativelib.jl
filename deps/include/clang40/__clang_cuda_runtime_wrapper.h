@@ -166,7 +166,10 @@ inline __host__ double __signbitd(double x) {
 // __device__.
 #pragma push_macro("__forceinline__")
 #define __forceinline__ __device__ __inline__ __attribute__((always_inline))
+
+#include "__sm60_intrinsics_begin.h"
 #include "device_functions.hpp"
+#include "__sm60_intrinsics_end.h"
 
 // math_function.hpp uses the __USE_FAST_MATH__ macro to determine whether we
 // get the slow-but-accurate or fast-but-inaccurate versions of functions like
