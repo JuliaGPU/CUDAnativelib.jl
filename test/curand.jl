@@ -2,7 +2,7 @@ using CUDAdrv, CUDAnative
 using CUDAnativelib
 using .CURANDkernel # notice the dot prefix
 
-@target ptx function fillRandom(out)
+function fillRandom(out)
   i = (blockIdx().x-1) * blockDim().x + threadIdx().x
   if i <= length(out)
     # Initialise state
@@ -23,6 +23,7 @@ end
 dev = CuDevice(0)
 ctx = CuContext(dev)
 N = 100
-out = CuArray(Float32, (N,))
+out = CuArray{Float32}(N)
 @cuda (N,1) fillRandom(out)
+c = Array(out) # force sync
 

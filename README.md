@@ -1,13 +1,13 @@
 # CUDAnativelib
+Based on [CUDAnative.jl](http://github.com/JuliaGPU/CUDAnative.jl) and [Cxx.jl](htttp://github.com/Keno/Cxx.jl)
+this package provides an interface to NVIDIA's device libraries from Julia. It is also meant as an example
+on how to interface to legacy C++ CUDA from Julia on the device level.
 
-This package exposes the device standard library distributed with CUDA.
-It requires a special [Julia version](http://github.com/JuliaGPU/julia), with support for Julia to CUDA code generation.
+Contributions to this package to are welcomed.
 
-Other dependencies are:
- - [CUDAnative.jl](http://github.com/JuliaGPU/CUDAnative.jl)
- - [Cxx.jl](htttp://github.com/Keno/Cxx.jl)
-
-These dependencies are experimental and need to be installed with `Pkg.clone`.
+# CUDA support
+Julia v0.6 currently uses LLVM 3.9.1, this means we only supports CUDA 7.0 & 7.5.
+CUDA 8.0 support requires at least LLVM 4.0.
 
 # Example
 
@@ -16,7 +16,7 @@ using CUDAdrv, CUDAnative
 using CUDAnativelib
 using .CURANDkernel # notice the dot prefix
 
-@target ptx function fillRandom(out, states)
+function fillRandom(out, states)
   i = (blockIdx().x-1) * blockDim().x + threadIdx().x
   if i < min(length(out), length(states))
     # Initialise state
@@ -37,8 +37,8 @@ end
 dev = CuDevice(0)
 ctx = CuContext(dev)
 N = 100
-state = CuArray(curandState_t, (N,)
-out = CuArray(Float32, (N,))
+state = CuArray{curandState_t}(N)
+out = CuArray{Float32}(N)
 @cuda (N,1) fillRandom(out, state)
 ```
 
