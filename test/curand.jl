@@ -17,8 +17,8 @@ end
 # code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
 # code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
 
-# code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
-# code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
+# CUDAnative.code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
+# CUDAnative.code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
 
 dev = CuDevice(0)
 ctx = CuContext(dev)

@@ -1,13 +1,16 @@
 # CUDAnativelib
-Based on [CUDAnative.jl](http://github.com/JuliaGPU/CUDAnative.jl) and [Cxx.jl](htttp://github.com/Keno/Cxx.jl)
-this package provides an interface to NVIDIA's device libraries from Julia. It is also meant as an example
-on how to interface to legacy C++ CUDA from Julia on the device level.
+Based on [CUDAnative.jl](http://github.com/JuliaGPU/CUDAnative.jl) and [Cxx.jl](http://github.com/Keno/Cxx.jl)
+this package provides an interface to NVIDIA's device libraries from Julia.
 
-Contributions to this package to are welcomed.
+It is also meant as an example on how to interface to legacy C++ CUDA from Julia on the device level.
+
+Contributions to this package are welcomed.
 
 # CUDA support
 Julia v0.6 currently uses LLVM 3.9.1, this means we only supports CUDA 7.0 & 7.5.
-CUDA 8.0 support requires at least LLVM 4.0.
+Full CUDA 8.0 support requires at least LLVM 4.0, but we provide some compatibility headers
+to partially support CUDA 8 on LLVM 3.9.1. If this does not work for you we recommend to parallely
+install CUDA 7.X and use the environment variable `CUDA_HOME` to change the CUDA version `CUDAnativelib` uses.
 
 # Example
 
@@ -28,11 +31,16 @@ function fillRandom(out)
   return nothing
 end
 
+##
+# Uncomment the following lines to see how the above function is lowered
+# Also note how we use multiple dispatch to select the right `curand_uniform` function.
+##
+
 # code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
 # code_warntype(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
 
-# code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
-# code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
+# CUDAnative.code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float32,1},))
+# CUDAnative.code_llvm(STDOUT, fillRandom, (CuDeviceArray{Float64,1},))
 
 dev = CuDevice(0)
 ctx = CuContext(dev)
