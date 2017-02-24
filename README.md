@@ -1,4 +1,6 @@
 # CUDAnativelib
+**[Build status](https://ci.maleadt.net/buildbot/julia/waterfall?tag=CUDAnativelib)** (Linux x86-64): [![](https://ci.maleadt.net/buildbot/julia/png?builder=CUDAnativelib.jl:%20Julia%20master%20(x86-64))](https://ci.maleadt.net/buildbot/julia/builders/CUDAnativelib.jl%3A%20Julia%20master%20%28x86-64%29)
+
 Based on [CUDAnative.jl](http://github.com/JuliaGPU/CUDAnative.jl) and [Cxx.jl](http://github.com/Keno/Cxx.jl)
 this package provides an interface to NVIDIA's device libraries from Julia.
 
