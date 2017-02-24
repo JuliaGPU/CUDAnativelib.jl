@@ -13,13 +13,13 @@ module CUDAnativelib
     const __sm__ = "sm_$(__cap__.major)$(__cap__.minor)"
     const __triple__ = Int === Int64 ? "nvptx64-nvidia-cuda" : "nvptx-nvidia-cuda"
 
-    const candidates = ["/usr/local/cuda", "/opt/cuda"]
+    const candidates = ["/usr/local/cuda", "/opt/cuda", "/usr"]
     CUDA_HOME = ""
     if haskey(ENV, "CUDA_HOME")
         CUDA_HOME = ENV["CUDA_HOME"]
     else
       for dir in candidates
-        if isdir(dir)
+        if isdir(dir) && isfile(joinpath(dir, "include", "cuda.h"))
           CUDA_HOME = dir
           break
         end
