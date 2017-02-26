@@ -1,6 +1,7 @@
-The CUDAnativelib.jl package is licensed under the MIT "Expat" License:
+The CUDAnativelib.jl package is licensed under the MIT "Expat" License.
+Some files have different Copyright (see the list below):
 
-> Copyright (c) 2016: Valentin Churavy.
+> Copyright (c) 2016-2017: Valentin Churavy and other contributors.
 > 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
@@ -20,3 +21,7 @@ The CUDAnativelib.jl package is licensed under the MIT "Expat" License:
 > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
 > 
+
+CUDAnativelib includes code from the following projects, which have their own licenses:
+
+- [CLANG/LLVM](http://releases.llvm.org/3.9.1/LICENSE.TXT) [BSD-3, effectively]   All files in `deps/include/clang40`.
